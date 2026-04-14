@@ -1,4 +1,4 @@
-import json
+
 import csv
 
 class DataSorter:
@@ -38,10 +38,13 @@ class DataSorter:
                             continue
                     else:
                         continue
-        # if the sorted data array is not empty, write it to a json file and return true, else return false
+        # if the sorted data array is not empty, write it to a csv file and return true, else return false
         if len(sorted_data) > 0:
-            with open('sorted_data.json', 'w') as f:
-                json.dump(sorted_data, f,indent=4) 
+            with open('sorted_data.csv', 'w', newline='') as f:
+                headers = sorted_data[0].keys()
+                writer = csv.DictWriter(f, fieldnames=headers)
+                writer.writeheader()
+                writer.writerows(sorted_data)
             isSorted=True  
         return isSorted
     
